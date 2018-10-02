@@ -1,5 +1,6 @@
 let snake;
 let rez = 20; //change the size of the grid
+let canvasPosition;
 let headH = rez;
 let headW = rez;
 let headX = 0;
@@ -26,7 +27,9 @@ let boost;
 dbconfig();
 
 function setup() {
-  createCanvas(500, 400);
+  // createCanvas(500, 400);
+  canvasPosition = createCanvas(500, 400);
+  centerCanvas();
   speed = initSpeed;
   boost = false;
   score = 0;
@@ -34,6 +37,16 @@ function setup() {
   h = height - rez;
   snake = new Snake();
   berry = new Berry();
+}
+
+function centerCanvas() {
+  var x = (windowWidth - width) / 2;
+  var y = (windowHeight - height) / 2;
+  canvasPosition.position(x, y);
+}
+
+function windowResized() {
+  centerCanvas();
 }
 
 function keyPressed() {
