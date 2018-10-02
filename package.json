@@ -1,0 +1,23 @@
+{
+  "name": "RainbowSnake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RosalvoPetrechen/RainbowSnake.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RosalvoPetrechen/RainbowSnake/issues"
+  },
+  "homepage": "https://RosalvoPetrechen.github.io/RainbowSnake",
+  "dependencies": {
+    "gh-pages": "^2.0.0"
+  }
+}
