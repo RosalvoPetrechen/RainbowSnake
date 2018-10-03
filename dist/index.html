@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,21 +6,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Snake</title>
+  <!-- bootstrap files -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <!-- p5 files -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/addons/p5.dom.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/addons/p5.sound.min.js"></script>
+  <!-- firebase files -->
   <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+  <!-- local files -->
   <script src="snake.js"></script>
   <script src="berry.js"></script>
   <script src="database.js"></script>
   <script src="sketch.js"></script>
 </head>
 
-<body class="bg-dark">
-  <div class="py-5 text-center">
-    <h2>RAINBOW SNAKE</h2>
-  </div>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="https://rosalvopetrechen.github.io/RainbowSnake/">RainbowSnake</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2 col-2" id="newwidth" value="500">
+        <input class="form-control mr-sm-2 col-2" id="newheight" value="400">
+        <!-- <input class="form-control mr-sm-2 col-2" id="newsize" value="20"> -->
+        <button class="btn btn-outline-success my-2 my-sm-0 col-3" type="button" id="newgame" onclick="newGame()">New Game</button>
+      </form>
+    </div>
+  </nav>
 </body>
 
 </html>
