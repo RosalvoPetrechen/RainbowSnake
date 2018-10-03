@@ -1,6 +1,8 @@
 let snake;
 let rez = 20; //change the size of the grid
 let canvasPosition;
+let canvasWidth = 400;
+let canvasHeight = 400;
 let headH = rez;
 let headW = rez;
 let headX = 0;
@@ -27,8 +29,7 @@ let boost;
 dbconfig();
 
 function setup() {
-  // createCanvas(500, 400);
-  canvasPosition = createCanvas(500, 400);
+  canvasPosition = createCanvas(canvasWidth, canvasHeight);
   centerCanvas();
   speed = initSpeed;
   boost = false;
@@ -37,6 +38,14 @@ function setup() {
   h = height - rez;
   snake = new Snake();
   berry = new Berry();
+}
+
+function newGame() {
+  var newWidth = document.getElementById("newwidth").value;
+  var newHeight = document.getElementById("newheight").value;
+  canvasWidth = newWidth;
+  canvasHeight = newHeight;
+  setup();
 }
 
 function centerCanvas() {
