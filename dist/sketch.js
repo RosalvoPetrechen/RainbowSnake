@@ -26,10 +26,12 @@ let comboFade = initSpeed;
 let highScores;
 let boost;
 let player;
+let gameover;
 
 dbconfig();
 
 function setup() {
+  gameover = false;
   canvasPosition = createCanvas(canvasWidth, canvasHeight);
   centerCanvas();
   speed = initSpeed;
@@ -107,57 +109,62 @@ function booster() {
 }
 
 function draw() {
-  frameRate(speed);
-  if (score > highScore) {
-    highScore = score;
-  }
-  background(220);
-  fill(180);
-  rect(0, height - rez, width, rez);
-  textAlign(LEFT, BASELINE);
-  textSize(15);
-  fill(0);
-  text('Speed: ' + speed.toFixed(1) + '  Eated: ' + (snake.body.length - 1) + '  Score: ' + score + '  Highscore: ' + highScore, 5, height - 5);
-  if (snake.eat(berry.food)) {
-    comboValue = round(1 / foodTime2 * 10000);
-    comboLocation = berry.food;
-    comboFade = speed;
-    comboTrigger = true;
-    foodTime2 = foodTime1;
-    berry = new Berry();
-    //check if food appear on the snake body
-    for (let i = 0; i < snake.body.length - 1; i++) {
-      let bodyPart = snake.body[i];
-      //if do, create a new food and check again
-      if (berry.food.equals(bodyPart)) {
-        berry = new Berry();
-        i = 0;
+  if (gameover) {
+
+  } else {
+
+    frameRate(speed);
+    if (score > highScore) {
+      highScore = score;
+    }
+    background(220);
+    fill(180);
+    rect(0, height - rez, width, rez);
+    textAlign(LEFT, BASELINE);
+    textSize(15);
+    fill(0);
+    text('Speed: ' + speed.toFixed(1) + '  Eated: ' + (snake.body.length - 1) + '  Score: ' + score + '  Highscore: ' + highScore, 5, height - 5);
+    if (snake.eat(berry.food)) {
+      comboValue = round(1 / foodTime2 * 10000);
+      comboLocation = berry.food;
+      comboFade = speed;
+      comboTrigger = true;
+      foodTime2 = foodTime1;
+      berry = new Berry();
+      //check if food appear on the snake body
+      for (let i = 0; i < snake.body.length - 1; i++) {
+        let bodyPart = snake.body[i];
+        //if do, create a new food and check again
+        if (berry.food.equals(bodyPart)) {
+          berry = new Berry();
+          i = 0;
+        }
       }
     }
-  }
-  snake.update();
-  snake.show();
-
-  if (comboTrigger) {
-    if (comboFade <= 0) {
-      comboTrigger = false;
-      comboFade = speed;
-    } else {
-      textSize(comboFade * 10);
-      fill(255, 0, 255);
-      textAlign(LEFT, CENTER);
-      text('X' + comboValue, comboLocation.x, comboLocation.y);
-      comboFade--;
+    snake.update();
+    snake.show();
+    
+    if (comboTrigger) {
+      if (comboFade <= 0) {
+        comboTrigger = false;
+        comboFade = speed;
+      } else {
+        textSize(comboFade * 10);
+        fill(255, 0, 255);
+        textAlign(LEFT, CENTER);
+        text('X' + comboValue, comboLocation.x, comboLocation.y);
+        comboFade--;
+      }
     }
-  }
-  if (invisible) {
-    berry.show();
-  } else {
-    if (snake.endGame()) {
-      retrieveScore();
-      setup();
-    } else {
+    if (invisible) {
       berry.show();
+    } else {
+      if (snake.endGame()) {
+        gameover = true;
+        retrieveScore();
+      } else {
+        berry.show();
+      }
     }
   }
 }

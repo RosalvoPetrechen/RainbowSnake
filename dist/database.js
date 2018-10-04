@@ -1,3 +1,5 @@
+let dbhighscore = 'snake';
+
 function dbconfig() {
   var config = {
     apiKey: "AIzaSyAKX3eGm1cI0vRXRTVq1FkgcPnvV4D1ebM",
@@ -12,12 +14,12 @@ function dbconfig() {
   highScores = firebase.database();
 
   //retrieve db data
-  var ref = highScores.ref('scores');
+  var ref = highScores.ref(dbhighscore);
   ref.on('value', gotData, errData);
 }
 
 function gotData(data) {
-  var ref = highScores.ref('scores');
+  var ref = highScores.ref(dbhighscore);
   ref.orderByChild("score").limitToLast(1).on("child_added", function (snapshot) {
     highScore = snapshot.val().score;
   });
@@ -29,7 +31,7 @@ function errData(err) {
 }
 
 function retrieveScore() {
-  var ref = highScores.ref('scores');
+  var ref = highScores.ref(dbhighscore);
   if (player == null || player == "") {
     player = "I am Groot";
   }
@@ -40,7 +42,7 @@ function retrieveScore() {
 }
 
 function submitScore() {
-  var ref = highScores.ref('scores');
+  var ref = highScores.ref(dbhighscore);
   player = document.getElementById("scorename").value
   var date = day() + "/" + month() + "/" + year();
   var time = hour() + ":" + minute() + ":" + second();
@@ -63,11 +65,11 @@ function scorepush(error) {
 }
 
 function showScores() {
-  var ref = highScores.ref('scores');
+  var ref = highScores.ref(dbhighscore);
   var scoreText = "TOP 10<br>";
   ref.orderByChild("score").limitToLast(10).on("child_added", function (snapshot) {
     scoreText = scoreText + '<br>' + "- " + (snapshot.val().name) + "  ---> " + (snapshot.val().score);
   });
   document.getElementById("highscoretext").innerHTML = scoreText;
-  $("#highscore").modal();
+  $("#highscore").modal({backdrop: false});
 }
