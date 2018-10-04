@@ -1,8 +1,10 @@
 class Snake {
-
   constructor() {
     this.body = [];
-    this.body[0] = createVector(round((w / 2) / rez) * rez, floor((h / 2) / rez) * rez);
+    this.body[0] = createVector(
+      round(w / 2 / rez) * rez,
+      floor(h / 2 / rez) * rez
+    );
     this.xdir = 0;
     this.ydir = 0;
   }
@@ -28,7 +30,7 @@ class Snake {
   endGame() {
     let x = this.body[this.body.length - 1].x;
     let y = this.body[this.body.length - 1].y;
-    if (x > w || x < 0 || y > (h - rez) || y < 0) {
+    if (x > w || x < 0 || y > h || y < 0) {
       return true;
     }
     for (let i = 0; i < this.body.length - 1; i++) {
@@ -39,16 +41,16 @@ class Snake {
     }
     return false;
   }
-  
+
   eat(pos) {
     if (snake.body[snake.body.length - 1].equals(berry.food)) {
       this.grow();
       foodTime1 = millis();
       foodTime2 = foodTime1 - foodTime2;
-    	score = score + round(speed * (1/foodTime2 * 10000) * powerBerry);
+      score = score + round(speed * ((1 / foodTime2) * 10000) * powerBerry);
       speed += acc;
       if (powerBerry == 2) {
-      	invisible = true;
+        invisible = true;
       } else {
         invisible = false;
       }
@@ -69,5 +71,4 @@ class Snake {
       }
     }
   }
-
 }

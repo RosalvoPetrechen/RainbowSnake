@@ -23,10 +23,9 @@ let comboTrigger = false;
 let comboValue;
 let comboLocation;
 let comboFade = initSpeed;
-let highScores;
 let boost;
-let player;
 let gameover;
+let level = "Normal";
 
 dbconfig();
 
@@ -43,11 +42,31 @@ function setup() {
   berry = new Berry();
 }
 
+function levelEasy() {
+  initSpeed = 2;
+  acc = 0.05;
+  level = "Easy";
+  newGame();
+}
+
+function levelNormal() {
+  initSpeed = 5;
+  acc = 0.1;
+  level = "Normal";
+  newGame();
+}
+
+function levelHard() {
+  initSpeed = 10;
+  acc = 0.5;
+  level = "Hard";
+  newGame();
+}
+
 function newGame() {
-  var newWidth = document.getElementById("newwidth").value;
-  var newHeight = document.getElementById("newheight").value;
-  canvasWidth = newWidth;
-  canvasHeight = newHeight;
+  canvasWidth = document.getElementById("newwidth").value;
+  canvasHeight = document.getElementById("newheight").value;
+  gotData();
   setup();
 }
 
@@ -110,22 +129,25 @@ function booster() {
 
 function draw() {
   if (gameover) {
-
   } else {
-
     frameRate(speed);
     if (score > highScore) {
       highScore = score;
     }
     background(220);
-    fill(180);
-    rect(0, height - rez, width, rez);
-    textAlign(LEFT, BASELINE);
-    textSize(15);
-    fill(0);
-    text('Speed: ' + speed.toFixed(1) + '  Eated: ' + (snake.body.length - 1) + '  Score: ' + score + '  Highscore: ' + highScore, 5, height - 5);
+    document.getElementById("navbarscore").innerHTML =
+      "<font size='5' color='#C70039'><strong>Score: " +
+      score +
+      "</strong></font>  Level: " +
+      level +
+      " Speed: " +
+      speed.toFixed(1) +
+      "  Eated: " +
+      (snake.body.length - 1) +
+      " Highscore: " +
+      highScore;
     if (snake.eat(berry.food)) {
-      comboValue = round(1 / foodTime2 * 10000);
+      comboValue = round((1 / foodTime2) * 10000);
       comboLocation = berry.food;
       comboFade = speed;
       comboTrigger = true;
@@ -143,7 +165,7 @@ function draw() {
     }
     snake.update();
     snake.show();
-    
+
     if (comboTrigger) {
       if (comboFade <= 0) {
         comboTrigger = false;
@@ -152,7 +174,7 @@ function draw() {
         textSize(comboFade * 10);
         fill(255, 0, 255);
         textAlign(LEFT, CENTER);
-        text('X' + comboValue, comboLocation.x, comboLocation.y);
+        text("X" + comboValue, comboLocation.x, comboLocation.y);
         comboFade--;
       }
     }
