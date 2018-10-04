@@ -25,6 +25,7 @@ let comboLocation;
 let comboFade = initSpeed;
 let highScores;
 let boost;
+let player;
 
 dbconfig();
 
@@ -153,7 +154,7 @@ function draw() {
     berry.show();
   } else {
     if (snake.endGame()) {
-      submitScore();
+      retrieveScore();
       setup();
     } else {
       berry.show();

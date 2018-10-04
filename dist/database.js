@@ -18,7 +18,7 @@ function dbconfig() {
 
 function gotData(data) {
   var ref = highScores.ref('scores');
-  ref.orderByChild("score").limitToLast(1).on("child_added", function(snapshot) {
+  ref.orderByChild("score").limitToLast(1).on("child_added", function (snapshot) {
     highScore = snapshot.val().score;
   });
 }
@@ -28,16 +28,24 @@ function errData(err) {
   console.log(err);
 }
 
+function retrieveScore() {
+  var ref = highScores.ref('scores');
+  if (player == null || player == "") {
+    player = "I am Groot";
+  }
+  document.getElementById("scorename").value = player;
+  document.getElementById("personalscore1").innerHTML = "Your Score: " + score;
+  document.getElementById("personalscore").innerHTML = "Your Score: " + score;
+  $("#inputscore").modal();
+}
+
 function submitScore() {
   var ref = highScores.ref('scores');
-  var name = prompt("Please enter your name", "I am Groot");
-  if (name == null || name == "") {
-    name = "I am Groot";
-  }
+  player = document.getElementById("scorename").value
   var date = day() + "/" + month() + "/" + year();
   var time = hour() + ":" + minute() + ":" + second();
   var data = {
-    name: name,
+    name: player,
     score: score,
     eated: snake.body.length - 1,
     speed: Number(speed.toFixed(1)),
@@ -45,15 +53,21 @@ function submitScore() {
     time: time
   }
   ref.push(data, scorepush);
-  var   scoreText = "TOP 5 HIGH SCORES\n";
-  ref.orderByChild("score").limitToLast(5).on("child_added", function(snapshot) {
-    scoreText = scoreText + '\n' + "- " + (snapshot.val().name) + "  ---> " + (snapshot.val().score);
-  });
-  alert(scoreText);
+  showScores();
 }
 
 function scorepush(error) {
   if (error) {
     console.log('Could not connect to the firebase!');
   }
+}
+
+function showScores() {
+  var ref = highScores.ref('scores');
+  var scoreText = "TOP 10<br>";
+  ref.orderByChild("score").limitToLast(10).on("child_added", function (snapshot) {
+    scoreText = scoreText + '<br>' + "- " + (snapshot.val().name) + "  ---> " + (snapshot.val().score);
+  });
+  document.getElementById("highscoretext").innerHTML = scoreText;
+  $("#highscore").modal();
 }
