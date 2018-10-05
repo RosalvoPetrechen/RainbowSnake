@@ -1,3 +1,6 @@
+let player;
+let highScores;
+
 function dbconfig() {
   var config = {
     apiKey: "AIzaSyAKX3eGm1cI0vRXRTVq1FkgcPnvV4D1ebM",
@@ -12,48 +15,76 @@ function dbconfig() {
   highScores = firebase.database();
 
   //retrieve db data
-  var ref = highScores.ref('scores');
-  ref.on('value', gotData, errData);
+  var ref = highScores.ref(level);
+  ref.on("value", gotData, errData);
 }
 
 function gotData(data) {
-  var ref = highScores.ref('scores');
-  ref.orderByChild("score").limitToLast(1).on("child_added", function(snapshot) {
-    highScore = snapshot.val().score;
-  });
+  var ref = highScores.ref(level);
+  ref
+    .orderByChild("score")
+    .limitToLast(1)
+    .on("child_added", function(snapshot) {
+      highScore = snapshot.val().score;
+    });
 }
 
 function errData(err) {
-  console.log('Error!');
+  console.log("Error!");
   console.log(err);
 }
 
-function submitScore() {
-  var ref = highScores.ref('scores');
-  var name = prompt("Please enter your name", "I am Groot");
-  if (name == null || name == "") {
-    name = "I am Groot";
+function retrieveScore() {
+  if (player == null || player == "") {
+    player = "I am Groot";
   }
+  document.getElementById("scorename").value = player;
+  document.getElementById("personalscore1").innerHTML = "Your Score: " + score;
+  document.getElementById("personalscore").innerHTML = "Your Score: " + score;
+  $("#inputscore").modal({ backdrop: false });
+}
+
+function submitScore() {
+  var ref = highScores.ref(level);
+  player = document.getElementById("scorename").value;
   var date = day() + "/" + month() + "/" + year();
   var time = hour() + ":" + minute() + ":" + second();
   var data = {
-    name: name,
+    name: player,
     score: score,
     eated: snake.body.length - 1,
     speed: Number(speed.toFixed(1)),
+    grid: rez,
+    width: document.getElementById("newwidth").value,
+    height: document.getElementById("newheight").value,
     date: date,
     time: time
-  }
+  };
   ref.push(data, scorepush);
-  var   scoreText = "TOP 5 HIGH SCORES\n";
-  ref.orderByChild("score").limitToLast(5).on("child_added", function(snapshot) {
-    scoreText = scoreText + '\n' + "- " + (snapshot.val().name) + "  ---> " + (snapshot.val().score);
-  });
-  alert(scoreText);
+  showScores();
 }
 
 function scorepush(error) {
   if (error) {
-    console.log('Could not connect to the firebase!');
+    console.log("Could not connect to the firebase!");
   }
+}
+
+function showScores() {
+  var ref = highScores.ref(level);
+  var scoreText = "TOP 10<br>";
+  ref
+    .orderByChild("score")
+    .limitToLast(10)
+    .on("child_added", function(snapshot) {
+      scoreText =
+        scoreText +
+        "<br>" +
+        "- " +
+        snapshot.val().name +
+        "  ---> " +
+        snapshot.val().score;
+    });
+  document.getElementById("highscoretext").innerHTML = scoreText;
+  $("#highscore").modal({ backdrop: false });
 }

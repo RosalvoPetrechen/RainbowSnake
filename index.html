@@ -24,17 +24,90 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <!-- Navbar Menu -->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+    <!-- Brand -->
     <a class="navbar-brand" href="https://rosalvopetrechen.github.io/RainbowSnake/">RainbowSnake</a>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2 col-2" id="newwidth" value="500">
+    <ul class="navbar-nav">
+      <!-- Dropdown Level -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          Level
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#" onclick="levelEasy();return false;">Easy</a>
+          <a class="dropdown-item" href="#" onclick="levelNormal();return false;">Normal</a>
+          <a class="dropdown-item" href="#" onclick="levelHard();return false;">Hard</a>
+        </div>
+      </li>
+      <!-- Input and Button -->
+      <form class="form-inline">
+        <input class="form-control mr-sm-2 col-2" id="newwidth" value="400">
         <input class="form-control mr-sm-2 col-2" id="newheight" value="400">
-        <!-- <input class="form-control mr-sm-2 col-2" id="newsize" value="20"> -->
-        <button class="btn btn-outline-success my-2 my-sm-0 col-3" type="button" id="newgame" onclick="newGame()">New Game</button>
+        <button class="btn btn-outline-success col-3" type="button" id="newgame" onclick="newGame()">New
+          Game</button>
       </form>
-    </div>
+    </ul>
   </nav>
+
+  <!-- Status bar -->
+  <nav class="navbar navbar-expand-sm bg-secondary navbar-secondary justify-content-center">
+    <span class="navbar-text" id="navbarscore"></span>
+  </nav>
+
+  <!-- Userinput Modal -->
+  <div class="container">
+    <div class="modal fade" id="inputscore" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Userinput Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Enter your name</h4>
+            <button type="button" class="close" data-dismiss="modal" onclick="newGame()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <div class="form-group">
+                <input type="text" class="form-control" id="scorename">
+              </div>
+              <button type="button" class="btn btn-success btn-block" data-dismiss="modal" onclick="submitScore()" id="scorebutton">OK</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <p id="personalscore1"></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- HighScore Modal -->
+  <div class="container">
+    <div class="modal fade" id="highscore" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+
+        <!-- HighScore Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="personalscore"></h4>
+            <button type="button" class="close" data-dismiss="modal" onclick="setup()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form role="form">
+              <div class="form-group">
+                <p id="highscoretext"></p>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
