@@ -1,5 +1,4 @@
 class Berry {
-
   constructor() {
     this.x = round(random(w) / rez) * rez;
     this.y = round(random(h - 20) / rez) * rez;
@@ -19,5 +18,4 @@ class Berry {
     ellipseMode(CORNER);
     ellipse(this.food.x, this.food.y, rez, rez);
   }
-
 }
