@@ -134,7 +134,11 @@ function draw() {
     if (score > highScore) {
       highScore = score;
     }
-    background(220);
+    if (invisible) {
+      background(93, 173, 226, 100);
+    } else {
+      background(220, 230);
+    }
     document.getElementById("navbarscore").innerHTML =
       "<font size='5' color='#C70039'><strong>Score: " +
       score +
@@ -178,15 +182,11 @@ function draw() {
         comboFade--;
       }
     }
-    if (invisible) {
-      berry.show();
+    if (snake.endGame()) {
+      gameover = true;
+      retrieveScore();
     } else {
-      if (snake.endGame()) {
-        gameover = true;
-        retrieveScore();
-      } else {
-        berry.show();
-      }
+      berry.show();
     }
   }
 }
