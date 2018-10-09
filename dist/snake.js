@@ -1,9 +1,14 @@
+let initSpeed = 5; //initial speed (framerate)
+let acc = 0.1; //acceleration steps
+let speed; //current speed
+let invisible = false;
+
 class Snake {
   constructor() {
     this.body = [];
     this.body[0] = createVector(
-      round(w / 2 / rez) * rez,
-      floor(h / 2 / rez) * rez
+      round(playableAreaWidth / 2 / resolution) * resolution,
+      floor(playableAreaHeight / 2 / resolution) * resolution
     );
     this.xdir = 0;
     this.ydir = 0;
@@ -31,22 +36,22 @@ class Snake {
     let x = this.body[this.body.length - 1].x;
     let y = this.body[this.body.length - 1].y;
     if (invisible) {
-      if (x > w) {
+      if (x > playableAreaWidth) {
         this.body[this.body.length - 1].x = 0;
         x = 0;
       } else if (x < 0) {
-        this.body[this.body.length - 1].x = w;
-        x = w;
-      } else if (y > h) {
+        this.body[this.body.length - 1].x = playableAreaWidth;
+        x = playableAreaWidth;
+      } else if (y > playableAreaHeight) {
         this.body[this.body.length - 1].y = 0;
         y = 0;
       } else if (y < 0) {
-        this.body[this.body.length - 1].y = h;
-        y = h;
+        this.body[this.body.length - 1].y = playableAreaHeight;
+        y = playableAreaHeight;
       }
       return false;
     }
-    if (x > w || x < 0 || y > h || y < 0) {
+    if (x > playableAreaWidth || x < 0 || y > playableAreaHeight || y < 0) {
       return true;
     }
     for (let i = 0; i < this.body.length - 1; i++) {
@@ -83,7 +88,7 @@ class Snake {
         ellipse(this.body[i].x - headX, this.body[i].y - headY, headH, headW);
       } else {
         //stroke(100);
-        rect(this.body[i].x, this.body[i].y, rez, rez);
+        rect(this.body[i].x, this.body[i].y, resolution, resolution);
       }
     }
   }

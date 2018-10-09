@@ -1,6 +1,9 @@
 let player;
 let highScores;
 
+let highScore = 0; //high score
+let score = 0; //current score
+
 function dbconfig() {
   var config = {
     apiKey: "AIzaSyAKX3eGm1cI0vRXRTVq1FkgcPnvV4D1ebM",
@@ -54,7 +57,7 @@ function submitScore() {
     score: score,
     eated: snake.body.length - 1,
     speed: Number(speed.toFixed(1)),
-    grid: rez,
+    grid: resolution,
     width: document.getElementById("newwidth").value,
     height: document.getElementById("newheight").value,
     date: date,
@@ -72,7 +75,7 @@ function scorepush(error) {
 
 function showScores() {
   var ref = highScores.ref(level);
-  var scoreText = "TOP 10<br>";
+  var scoreText = "TOP 10 " + level + "<br>";
   ref
     .orderByChild("score")
     .limitToLast(10)

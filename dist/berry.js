@@ -1,7 +1,9 @@
+let powerBerry;
+
 class Berry {
   constructor() {
-    this.x = round(random(w) / rez) * rez;
-    this.y = round(random(h - 20) / rez) * rez;
+    this.x = round(random(playableAreaWidth) / resolution) * resolution;
+    this.y = round(random(playableAreaHeight - 20) / resolution) * resolution;
     this.food = createVector(this.x, this.y);
     this.powerBerry = random();
   }
@@ -16,6 +18,6 @@ class Berry {
       powerBerry = 1;
     }
     ellipseMode(CORNER);
-    ellipse(this.food.x, this.food.y, rez, rez);
+    ellipse(this.food.x, this.food.y, resolution, resolution);
   }
 }
