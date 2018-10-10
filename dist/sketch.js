@@ -34,7 +34,8 @@ dbconfig();
 function setup() {
   gameover = false;
   canvas = createCanvas(canvasWidth, canvasHeight);
-  centerCanvas();
+  canvas.parent("canvas-holder");
+  //centerCanvas();
   speed = initSpeed;
   boost = false;
   score = 0;
@@ -72,16 +73,16 @@ function newGame() {
   setup();
 }
 
-function centerCanvas() {
-  var x = (windowWidth - canvasWidth) / 2;
-  var y = 150;
-  // var y = (windowHeight - canvasHeight) / 1.3;
-  canvas.position(x, y);
-}
+// function centerCanvas() {
+//   var x = (windowWidth - canvasWidth) / 2;
+//   var y = 150;
+//   // var y = (windowHeight - canvasHeight) / 1.3;
+//   canvas.position(x, y);
+// }
 
-function windowResized() {
-  centerCanvas();
-}
+// function windowResized() {
+//   centerCanvas();
+// }
 
 function keyPressed() {
   switch (keyCode) {
@@ -166,7 +167,7 @@ function checkCollision() {
 function writeStatus() {
   document.getElementById(
     "navbarscore"
-  ).innerHTML = `Score: ${score} <small class="text-success">Level: ${level} Speed: ${speed.toFixed(
+  ).innerHTML = `Score: ${score} <small class="rainbow-style">Level: ${level} Speed: ${speed.toFixed(
     1
   )} Highscore: ${highScore}</small>`;
 }

@@ -1,0 +1,84 @@
+body {
+  background: #343a40;
+}
+
+#rainbow {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.rainbow-style {
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(0, #f22),
+    color-stop(0.15, #f2f),
+    color-stop(0.3, #22f),
+    color-stop(0.45, #2ff),
+    color-stop(0.6, #2f2),
+    color-stop(0.75, #2f2),
+    color-stop(0.9, #ff2)
+  );
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.btn-outline-game {
+  color: #ff2;
+  background-color: transparent;
+  background-image: none;
+  border-color: #ff2;
+}
+
+.btn-outline-game:hover {
+  color: #212529;
+  background-color: #ff2;
+  border-color: #ff2;
+}
+
+.btn-outline-game:focus,
+.btn-outline-game.focus {
+  box-shadow: 0 0 0 0.1rem rgba(255, 233, 34, 0.637);
+}
+
+.btn-outline-level {
+  color: #f22;
+  background-color: transparent;
+  background-image: none;
+  border-color: #f22;
+}
+
+.btn-outline-level:hover {
+  color: #212529;
+  background-color: #f22;
+  border-color: #f22;
+}
+
+.btn-outline-level:focus,
+.btn-outline-level.focus {
+  box-shadow: 0 0 0 0.1rem rgba(255, 34, 34, 0.637);
+}
+
+.btn-outline-level:not(:disabled):not(.disabled):active,
+.btn-outline-danger:not(:disabled):not(.disabled).active,
+.show > .btn-outline-danger.dropdown-toggle {
+  color: rgb(255, 255, 255);
+  background-color: #f22;
+  border-color: #f22;
+}
+
+.btn-outline-level:not(:disabled):not(.disabled):active:focus,
+.btn-outline-danger:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-danger.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.1rem rgba(255, 34, 34, 0.637);
+}
+
+.text-score {
+  color: #f22;
+}

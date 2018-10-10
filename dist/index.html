@@ -17,6 +17,7 @@
   <!-- firebase files -->
   <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
   <!-- local files -->
+  <link rel="stylesheet" type="text/css" href="style.css">
   <script src="snake.js"></script>
   <script src="berry.js"></script>
   <script src="database.js"></script>
@@ -26,11 +27,12 @@
 <body>
   <!-- Header -->
   <div class="container-expand-sm text-center bg-dark">
-    <h1 class="text-danger">Rainbow Snake</h1>
+    <div><span class="rainbow-style" id="rainbow">Rainbow Snake</span></div>
+    <!-- <h1 class="rainbow-style">Rainbow Snake</h1> -->
     <!-- Menu bar -->
     <form class="form-inline justify-content-center">
       <div class="dropdown">
-        <button type="button" class="btn btn-outline-danger dropdown-toggle m-2" data-toggle="dropdown">Level</button>
+        <button type="button" class="btn btn-outline-level dropdown-toggle m-2" data-toggle="dropdown">Level</button>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#" onclick="levelEasy();return false;">Easy</a>
           <a class="dropdown-item" href="#" onclick="levelNormal();return false;">Normal</a>
@@ -39,13 +41,17 @@
       </div>
       <input class="form-control m-2 col-1" id="newwidth" value="400">
       <input class="form-control m-2 col-1" id="newheight" value="400">
-      <button class="btn btn-outline-success m-2" type="button" id="newgame" onclick="newGame()">New
+      <button class="btn btn-outline-game m-2" type="button" id="newgame" onclick="newGame()">New
         Game</button>
     </form>
 
     <!-- Status bar -->
-    <h5 class="pb-2 text-danger" id="navbarscore"></h5>
+    <h5 class="pb-2 text-score" id="navbarscore"></h5>
+    <div id="canvas-holder"></div>
   </div>
+
+  <!-- Canvas holder -->
+  <!-- <div class="text-center bg-dark" id="canvas-holder"></div> -->
 
   <!-- Userinput Modal -->
   <div class="container">
