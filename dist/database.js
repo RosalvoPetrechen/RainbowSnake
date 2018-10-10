@@ -75,18 +75,15 @@ function scorepush(error) {
 
 function showScores() {
   var ref = highScores.ref(level);
-  var scoreText = "TOP 10 " + level + "<br>";
+  var scoreText = `TOP 10 ${level} <br>`;
+  // var scoreText = "TOP 10 " + level + "<br>";
   ref
     .orderByChild("score")
     .limitToLast(10)
     .on("child_added", function(snapshot) {
-      scoreText =
-        scoreText +
-        "<br>" +
-        "- " +
-        snapshot.val().name +
-        "  ---> " +
-        snapshot.val().score;
+      scoreText = `${scoreText} <br> - ${snapshot.val().name} ---> ${
+        snapshot.val().score
+      }`;
     });
   document.getElementById("highscoretext").innerHTML = scoreText;
   $("#highscore").modal({ backdrop: false });

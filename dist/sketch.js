@@ -164,18 +164,11 @@ function checkCollision() {
 }
 
 function writeStatus() {
-  document.getElementById("navbarscore").innerHTML =
-    "<font size='6' color='RED'><strong>Score: " + score + "</strong></font>";
-  document.getElementById("navbarstatus").innerHTML =
-    "<font size='4' color='BLACK'><strong>Level: " +
-    level +
-    "<font color='#641E16'> Speed: " +
-    speed.toFixed(1) +
-    "<font color='#0B5345'> Eated: " +
-    (snake.body.length - 1) +
-    "<font color='#641E16'> Highscore: " +
-    highScore +
-    "</strong></font>";
+  document.getElementById(
+    "navbarscore"
+  ).innerHTML = `Score: ${score} <small class="text-success">Level: ${level} Speed: ${speed.toFixed(
+    1
+  )} Highscore: ${highScore}</small>`;
 }
 
 function draw() {
