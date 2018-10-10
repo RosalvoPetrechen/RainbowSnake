@@ -24,44 +24,27 @@
 </head>
 
 <body>
-
-  <!-- Navbar Menu -->
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
-    <!-- Brand -->
-    <a class="navbar-brand" href="https://rosalvopetrechen.github.io/RainbowSnake/">RainbowSnake</a>
-    <ul class="navbar-nav">
-      <!-- Dropdown Level -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          Level
-        </a>
+  <!-- Header -->
+  <div class="container-expand-sm text-center bg-dark">
+    <h1 class="text-danger">Rainbow Snake</h1>
+    <!-- Menu bar -->
+    <form class="form-inline justify-content-center">
+      <div class="dropdown">
+        <button type="button" class="btn btn-outline-danger dropdown-toggle m-2" data-toggle="dropdown">Level</button>
         <div class="dropdown-menu">
           <a class="dropdown-item" href="#" onclick="levelEasy();return false;">Easy</a>
           <a class="dropdown-item" href="#" onclick="levelNormal();return false;">Normal</a>
           <a class="dropdown-item" href="#" onclick="levelHard();return false;">Hard</a>
         </div>
-      </li>
-      <!-- Input and Button -->
-      <form class="form-inline">
-        <input class="form-control mr-sm-2 col-2" id="newwidth" value="400">
-        <input class="form-control mr-sm-2 col-2" id="newheight" value="400">
-        <button class="btn btn-outline-success col-3" type="button" id="newgame" onclick="newGame()">New
-          Game</button>
-      </form>
-    </ul>
-  </nav>
+      </div>
+      <input class="form-control m-2 col-1" id="newwidth" value="400">
+      <input class="form-control m-2 col-1" id="newheight" value="400">
+      <button class="btn btn-outline-success m-2" type="button" id="newgame" onclick="newGame()">New
+        Game</button>
+    </form>
 
-  <!-- Status bar -->
-  <!-- <nav class="navbar navbar-expand-sm bg-secondary navbar-secondary justify-content-center">
-    <span class="navbar-text" id="navbarscore"></span>
-  </nav> -->
-  <div class="container">
-    <div class="row justify-content-md-center">
-      <span id="navbarscore"></span>
-    </div>
-    <div class="row justify-content-md-center">
-      <span id="navbarstatus"></span>
-    </div>
+    <!-- Status bar -->
+    <h5 class="pb-2 text-danger" id="navbarscore"></h5>
   </div>
 
   <!-- Userinput Modal -->
@@ -69,7 +52,6 @@
     <div class="modal fade" id="inputscore" role="dialog">
       <div class="modal-dialog modal-dialog-centered">
 
-        <!-- Userinput Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Enter your name</h4>
@@ -97,7 +79,6 @@
     <div class="modal fade" id="highscore" role="dialog">
       <div class="modal-dialog modal-dialog-centered">
 
-        <!-- HighScore Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title" id="personalscore"></h4>
