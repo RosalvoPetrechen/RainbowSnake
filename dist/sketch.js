@@ -141,8 +141,8 @@ function showCombo() {
 
 function checkCollision() {
   //check if food appear on the snake body
-  for (let i = 0; i < snake.body.length - 1; i++) {
-    let bodyPart = snake.body[i];
+  for (let i = 0; i < snake.body[0].length - 1; i++) {
+    let bodyPart = snake.body[0][i];
     //if do, create a new food and check again
     if (bunny.food.equals(bodyPart)) {
       bunny = new Bunny();

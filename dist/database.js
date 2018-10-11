@@ -55,7 +55,7 @@ function submitScore() {
   var data = {
     name: player,
     score: score,
-    eated: snake.body.length - 1,
+    eated: snake.body[0].length - 1,
     speed: Number(speed.toFixed(1)),
     grid: resolution,
     width: document.getElementById("newwidth").value,
