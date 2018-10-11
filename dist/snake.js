@@ -68,9 +68,9 @@ class Snake {
       this.grow();
       foodTime1 = millis();
       foodTime2 = foodTime1 - foodTime2;
-      score = score + round(speed * ((1 / foodTime2) * 10000) * powerBerry);
+      score = score + round(speed * ((1 / foodTime2) * 10000) * powerBunny);
       speed += acc;
-      if (powerBerry == 2) {
+      if (powerBunny == 2) {
         invisible = true;
       } else {
         invisible = false;
@@ -82,13 +82,35 @@ class Snake {
 
   show() {
     for (let i = 0; i < this.body.length; i++) {
+      if (invisible) {
+        tint(255, 0, 0);
+      } else {
+        noTint();
+      }
       noStroke();
       fill(0, 51, 25);
       if (i == this.body.length - 1) {
-        ellipse(this.body[i].x - headX, this.body[i].y - headY, headH, headW);
+        //head position
+        imageMode(CORNER);
+        image(
+          animation[snakeDir],
+          this.body[i].x,
+          this.body[i].y,
+          resolution,
+          resolution
+        );
+      } else if (i == 0) {
+        //tail position
+        imageMode(CORNER);
+        image(
+          animation[snakeDir + 4],
+          this.body[i].x,
+          this.body[i].y,
+          resolution,
+          resolution
+        );
       } else {
-        //stroke(100);
-        rect(this.body[i].x, this.body[i].y, resolution, resolution);
+        rect(this.body[i].x, this.body[i].y, resolution, resolution); //body position
       }
     }
   }

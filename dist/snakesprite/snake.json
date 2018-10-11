@@ -1,0 +1,148 @@
+{
+  "snakeFrames": [
+    {
+      "name": "head-up",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "head-right",
+      "position": {
+        "x": 16,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "head-down",
+      "position": {
+        "x": 32,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "head-left",
+      "position": {
+        "x": 48,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "tail-up",
+      "position": {
+        "x": 0,
+        "y": 16,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "tail-right",
+      "position": {
+        "x": 16,
+        "y": 16,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "tail-down",
+      "position": {
+        "x": 32,
+        "y": 16,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "tail-left",
+      "position": {
+        "x": 48,
+        "y": 16,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "turning-up",
+      "position": {
+        "x": 0,
+        "y": 32,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "turning-right",
+      "position": {
+        "x": 16,
+        "y": 32,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "turning-down",
+      "position": {
+        "x": 32,
+        "y": 32,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "turning-left",
+      "position": {
+        "x": 48,
+        "y": 32,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "vertical",
+      "position": {
+        "x": 0,
+        "y": 48,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "horizontal",
+      "position": {
+        "x": 16,
+        "y": 48,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "bunny",
+      "position": {
+        "x": 32,
+        "y": 48,
+        "w": 16,
+        "h": 16
+      }
+    },
+    {
+      "name": "grass",
+      "position": {
+        "x": 48,
+        "y": 48,
+        "w": 16,
+        "h": 16
+      }
+    }
+  ]
+}

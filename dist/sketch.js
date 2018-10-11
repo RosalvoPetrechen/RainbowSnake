@@ -1,6 +1,6 @@
 //Objects
 let snake;
-let berry;
+let bunny;
 
 //Canvas variables
 let canvas;
@@ -10,14 +10,12 @@ let playableAreaWidth;
 let playableAreaHeight;
 let resolution = 20;
 
-//Snake head size and position
-let headH = resolution;
-let headW = resolution;
-let headX = 0;
-let headY = 0;
+//Snake direction
+let snakeDir;
 
-// let highScore = 0; //high score
-// let score = 0; //current score
+let spritesheet;
+let spritedata;
+let animation = [];
 
 let foodTime1 = 0; //time between foods for score purposes
 let foodTime2 = 0; //time between foods for score purposes
@@ -31,18 +29,30 @@ let level = "Normal";
 
 dbconfig();
 
+function preload() {
+  spritesheet = loadImage("snakesprite/snake.png");
+  spritedata = loadJSON("snakesprite/snake.json");
+}
+
 function setup() {
+  let frames = spritedata.snakeFrames;
+  for (let i = 0; i < frames.length; i++) {
+    let pos = frames[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    animation.push(img);
+  }
+
   gameover = false;
+  snakeDir = 0;
   canvas = createCanvas(canvasWidth, canvasHeight);
   canvas.parent("canvas-holder");
-  //centerCanvas();
   speed = initSpeed;
   boost = false;
   score = 0;
   playableAreaWidth = canvasWidth - resolution;
   playableAreaHeight = canvasHeight - resolution;
   snake = new Snake();
-  berry = new Berry();
+  bunny = new Bunny();
 }
 
 function levelEasy() {
@@ -73,46 +83,23 @@ function newGame() {
   setup();
 }
 
-// function centerCanvas() {
-//   var x = (windowWidth - canvasWidth) / 2;
-//   var y = 150;
-//   // var y = (windowHeight - canvasHeight) / 1.3;
-//   canvas.position(x, y);
-// }
-
-// function windowResized() {
-//   centerCanvas();
-// }
-
 function keyPressed() {
   switch (keyCode) {
-    case LEFT_ARROW:
-      snake.setDir(-resolution, 0);
-      headH = resolution * 1.5;
-      headW = resolution;
-      headX = 0;
-      headY = 0;
+    case UP_ARROW:
+      snake.setDir(0, -resolution);
+      snakeDir = 0;
       break;
     case RIGHT_ARROW:
       snake.setDir(resolution, 0);
-      headH = resolution * 1.5;
-      headW = resolution;
-      headX = resolution / 2;
-      headY = 0;
+      snakeDir = 1;
       break;
     case DOWN_ARROW:
       snake.setDir(0, resolution);
-      headH = resolution;
-      headW = resolution * 1.5;
-      headX = 0;
-      headY = resolution / 2;
+      snakeDir = 2;
       break;
-    case UP_ARROW:
-      snake.setDir(0, -resolution);
-      headH = resolution;
-      headW = resolution * 1.5;
-      headX = 0;
-      headY = 0;
+    case LEFT_ARROW:
+      snake.setDir(-resolution, 0);
+      snakeDir = 3;
       break;
     case SHIFT: //toogle booster, increasing speed by xx%
       booster();
@@ -133,7 +120,7 @@ function booster() {
 
 function prepareCombo() {
   comboValue = round((1 / foodTime2) * 10000);
-  comboLocation = berry.food;
+  comboLocation = bunny.food;
   comboFade = speed;
   comboTrigger = true;
   foodTime2 = foodTime1;
@@ -157,8 +144,8 @@ function checkCollision() {
   for (let i = 0; i < snake.body.length - 1; i++) {
     let bodyPart = snake.body[i];
     //if do, create a new food and check again
-    if (berry.food.equals(bodyPart)) {
-      berry = new Berry();
+    if (bunny.food.equals(bodyPart)) {
+      bunny = new Bunny();
       i = 0;
     }
   }
@@ -179,15 +166,11 @@ function draw() {
     if (score > highScore) {
       highScore = score;
     }
-    if (invisible) {
-      background(93, 173, 226, 100);
-    } else {
-      background(220, 230);
-    }
+    background(220);
     writeStatus();
-    if (snake.eat(berry.food)) {
+    if (snake.eat(bunny.food)) {
       prepareCombo();
-      berry = new Berry();
+      bunny = new Bunny();
       checkCollision();
     }
     snake.update();
@@ -200,7 +183,7 @@ function draw() {
       gameover = true;
       retrieveScore();
     } else {
-      berry.show();
+      bunny.show();
     }
   }
 }
