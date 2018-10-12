@@ -24,6 +24,7 @@ let comboValue;
 let comboLocation;
 let comboFade = initSpeed;
 let boost;
+let paused;
 let gameover;
 let level = "Normal";
 
@@ -48,6 +49,7 @@ function setup() {
   canvas.parent("canvas-holder");
   speed = initSpeed;
   boost = false;
+  paused = false;
   score = 0;
   playableAreaWidth = canvasWidth - resolution;
   playableAreaHeight = canvasHeight - resolution;
@@ -104,6 +106,9 @@ function keyPressed() {
     case SHIFT: //toogle booster, increasing speed by xx%
       booster();
       break;
+    case CONTROL:
+      pauseMe();
+      break;
     default:
   }
 }
@@ -115,6 +120,18 @@ function booster() {
   } else {
     speed = speed * 1.5;
     boost = true;
+  }
+}
+
+// NOT WORKING, PAUSE FOREVER
+function pauseMe() {
+  if (paused) {
+    speed = prevSpeed;
+    paused = false;
+  } else {
+    prevSpeed = speed;
+    speed = 0;
+    paused = true;
   }
 }
 
@@ -141,8 +158,8 @@ function showCombo() {
 
 function checkCollision() {
   //check if food appear on the snake body
-  for (let i = 0; i < snake.body[0].length - 1; i++) {
-    let bodyPart = snake.body[0][i];
+  for (let i = 0; i < snake.body.length - 1; i++) {
+    let bodyPart = snake.body[i][0][0];
     //if do, create a new food and check again
     if (bunny.food.equals(bodyPart)) {
       bunny = new Bunny();
