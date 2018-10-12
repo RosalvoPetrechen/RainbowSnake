@@ -27,18 +27,21 @@ class Snake {
   }
 
   update() {
-    let headPosition = this.body[this.body.length - 1][0][0].copy();
-    //let headDir = this.body[this.body.length - 1][1];
+    let head = this.body[this.body.length - 1][0][0].copy();
     this.body.shift(); //remove the first
-    headPosition.x += this.xdir;
-    headPosition.y += this.ydir;
-    this.body.push([[headPosition], snakePoint]); //add to the end
-    // console.log(this.body);
+    head.x += this.xdir;
+    head.y += this.ydir;
+    this.body.push([[head], snakePoint]); //add to the end
   }
 
   grow() {
-    let head = this.body[this.body.length - 1][0][0].copy();
-    this.body.push([[head], snakePoint]);
+    //add to the beggining of the array
+    let head = this.body[0][0][0].copy();
+    this.body.unshift([[head], snakePoint]);
+
+    //add to the end of the array
+    // let head = this.body[this.body.length - 1][0][0].copy();
+    // this.body.push([[head], snakePoint]);
   }
 
   endGame() {
@@ -90,6 +93,7 @@ class Snake {
   }
 
   show() {
+    let prevSprite = 0;
     for (let i = 0; i < this.body.length; i++) {
       let selectSprite;
       if (invisible) {
@@ -102,32 +106,61 @@ class Snake {
         selectSprite = snakePoint;
       } else if (i == 0) {
         //tail position
+        this.body[0][1] = this.body[1][1];
         selectSprite = this.body[0][1] + 4;
       } else {
         //body position
         let actualPart = this.body[i][1]; //direction of the body part
         let prevPart = this.body[i - 1][1]; //direction of the previous part
         let nextPart = this.body[i + 1][1]; //direction of the next part
-        if (
-          (prevPart == 3 && nextPart == 0) ||
-          (prevPart == 2 && nextPart == 1)
-        ) {
-          selectSprite = 8;
-        } else if (
-          (prevPart == 3 && nextPart == 2) ||
-          (prevPart == 0 && nextPart == 1)
-        ) {
-          selectSprite = 9;
-        } else if (
-          (prevPart == 1 && nextPart == 2) ||
-          (prevPart == 0 && nextPart == 3)
-        ) {
-          selectSprite = 10;
-        } else if (
-          (prevPart == 1 && nextPart == 0) ||
-          (prevPart == 2 && nextPart == 3)
-        ) {
-          selectSprite = 11;
+        if (prevPart == 3 && nextPart == 0) {
+          if (prevSprite == 8) {
+            selectSprite = 12;
+          } else {
+            selectSprite = 8;
+          }
+        } else if (prevPart == 2 && nextPart == 1) {
+          if (prevSprite == 8) {
+            selectSprite = 13;
+          } else {
+            selectSprite = 8;
+          }
+        } else if (prevPart == 3 && nextPart == 2) {
+          if (prevSprite == 9) {
+            selectSprite = 12;
+          } else {
+            selectSprite = 9;
+          }
+        } else if (prevPart == 0 && nextPart == 1) {
+          if (prevSprite == 9) {
+            selectSprite = 13;
+          } else {
+            selectSprite = 9;
+          }
+        } else if (prevPart == 1 && nextPart == 2) {
+          if (prevSprite == 10) {
+            selectSprite = 12;
+          } else {
+            selectSprite = 10;
+          }
+        } else if (prevPart == 0 && nextPart == 3) {
+          if (prevSprite == 10) {
+            selectSprite = 13;
+          } else {
+            selectSprite = 10;
+          }
+        } else if (prevPart == 1 && nextPart == 0) {
+          if (prevSprite == 11) {
+            selectSprite = 12;
+          } else {
+            selectSprite = 11;
+          }
+        } else if (prevPart == 2 && nextPart == 3) {
+          if (prevSprite == 11) {
+            selectSprite = 13;
+          } else {
+            selectSprite = 11;
+          }
         } else if (actualPart == 0 || actualPart == 2) {
           selectSprite = 12;
         } else {
@@ -141,6 +174,7 @@ class Snake {
         resolution,
         resolution
       );
+      prevSprite = selectSprite;
     }
   }
 }

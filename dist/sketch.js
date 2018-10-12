@@ -26,6 +26,7 @@ let comboLocation;
 let comboFade = initSpeed;
 let boost;
 let paused;
+let slow;
 let gameover;
 let level = "Normal";
 
@@ -52,6 +53,7 @@ function setup() {
   speed = initSpeed;
   boost = false;
   paused = false;
+  slow = false;
   score = 0;
   playableAreaWidth = canvasWidth - resolution;
   playableAreaHeight = canvasHeight - resolution;
@@ -104,8 +106,11 @@ function keyPressed() {
     case SHIFT: //toogle booster, increasing speed by xx%
       booster();
       break;
-    case CONTROL:
+    case ENTER:
       pauseMe();
+      break;
+    case CONTROL:
+      superSlow();
       break;
     default:
   }
@@ -130,6 +135,17 @@ function pauseMe() {
     prevSpeed = speed;
     speed = 0;
     paused = true;
+  }
+}
+
+function superSlow() {
+  if (slow) {
+    speed = prevSpeed;
+    slow = false;
+  } else {
+    prevSpeed = speed;
+    speed = 0.05;
+    slow = true;
   }
 }
 
@@ -171,7 +187,7 @@ function writeStatus() {
     "navbarscore"
   ).innerHTML = `Score: ${score} <small class="rainbow-style">Level: ${level} Speed: ${speed.toFixed(
     1
-  )} Highscore: ${highScore}</small>`;
+  )} Highscore: ${highScore} ${frameCount}</small>`;
 }
 
 function draw() {
