@@ -6,7 +6,7 @@ let invisible = false;
 
 class Snake {
   constructor() {
-    this.body = [[[], 666]]; // array 0 is position, 1 is direction
+    this.body = [[[], snakePoint]]; // array 0 is position, 1 is direction
     this.body[0][0][0] = createVector(
       round(playableAreaWidth / 2 / resolution) * resolution,
       floor(playableAreaHeight / 2 / resolution) * resolution
@@ -15,24 +15,30 @@ class Snake {
     this.ydir = 0;
   }
 
-  setDir(x, y) {
-    this.xdir = x;
-    this.ydir = y;
+  setDir(x, y, point) {
+    let dir = createVector(x, y);
+    if (dir.x == -prevDir.x || dir.y == -prevDir.y) {
+    } else {
+      snakePoint = point;
+      this.xdir = dir.x;
+      this.ydir = dir.y;
+      prevDir = dir.copy();
+    }
   }
 
   update() {
     let headPosition = this.body[this.body.length - 1][0][0].copy();
-    let headDir = this.body[this.body.length - 1][1];
+    //let headDir = this.body[this.body.length - 1][1];
     this.body.shift(); //remove the first
     headPosition.x += this.xdir;
     headPosition.y += this.ydir;
-    headDir += 1;
-    this.body.push([[headPosition], headDir]); //add to the end
+    this.body.push([[headPosition], snakePoint]); //add to the end
+    // console.log(this.body);
   }
 
   grow() {
     let head = this.body[this.body.length - 1][0][0].copy();
-    this.body.push([[head], 777]);
+    this.body.push([[head], snakePoint]);
   }
 
   endGame() {
@@ -85,42 +91,56 @@ class Snake {
 
   show() {
     for (let i = 0; i < this.body.length; i++) {
+      let selectSprite;
       if (invisible) {
         tint(255, 0, 0);
       } else {
         noTint();
       }
-      noStroke();
-      fill(0, 51, 25);
       if (i == this.body.length - 1) {
         //head position
-        imageMode(CORNER);
-        image(
-          animation[snakeDir],
-          this.body[i][0][0].x,
-          this.body[i][0][0].y,
-          resolution,
-          resolution
-        );
+        selectSprite = snakePoint;
       } else if (i == 0) {
         //tail position
-        imageMode(CORNER);
-        image(
-          animation[snakeDir + 4],
-          this.body[i][0][0].x,
-          this.body[i][0][0].y,
-          resolution,
-          resolution
-        );
+        selectSprite = this.body[0][1] + 4;
       } else {
         //body position
-        rect(
-          this.body[i][0][0].x,
-          this.body[i][0][0].y,
-          resolution,
-          resolution
-        );
+        let actualPart = this.body[i][1]; //direction of the body part
+        let prevPart = this.body[i - 1][1]; //direction of the previous part
+        let nextPart = this.body[i + 1][1]; //direction of the next part
+        if (
+          (prevPart == 3 && nextPart == 0) ||
+          (prevPart == 2 && nextPart == 1)
+        ) {
+          selectSprite = 8;
+        } else if (
+          (prevPart == 3 && nextPart == 2) ||
+          (prevPart == 0 && nextPart == 1)
+        ) {
+          selectSprite = 9;
+        } else if (
+          (prevPart == 1 && nextPart == 2) ||
+          (prevPart == 0 && nextPart == 3)
+        ) {
+          selectSprite = 10;
+        } else if (
+          (prevPart == 1 && nextPart == 0) ||
+          (prevPart == 2 && nextPart == 3)
+        ) {
+          selectSprite = 11;
+        } else if (actualPart == 0 || actualPart == 2) {
+          selectSprite = 12;
+        } else {
+          selectSprite = 13;
+        }
       }
+      image(
+        animation[selectSprite],
+        this.body[i][0][0].x,
+        this.body[i][0][0].y,
+        resolution,
+        resolution
+      );
     }
   }
 }

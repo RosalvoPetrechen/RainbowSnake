@@ -11,7 +11,8 @@ let playableAreaHeight;
 let resolution = 20;
 
 //Snake direction
-let snakeDir;
+let snakePoint;
+let prevDir;
 
 let spritesheet;
 let spritedata;
@@ -42,9 +43,10 @@ function setup() {
     let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
     animation.push(img);
   }
-
+  imageMode(CORNER);
   gameover = false;
-  snakeDir = 0;
+  snakePoint = 0;
+  prevDir = createVector(1, 1);
   canvas = createCanvas(canvasWidth, canvasHeight);
   canvas.parent("canvas-holder");
   speed = initSpeed;
@@ -88,20 +90,16 @@ function newGame() {
 function keyPressed() {
   switch (keyCode) {
     case UP_ARROW:
-      snake.setDir(0, -resolution);
-      snakeDir = 0;
+      snake.setDir(0, -resolution, 0);
       break;
     case RIGHT_ARROW:
-      snake.setDir(resolution, 0);
-      snakeDir = 1;
+      snake.setDir(resolution, 0, 1);
       break;
     case DOWN_ARROW:
-      snake.setDir(0, resolution);
-      snakeDir = 2;
+      snake.setDir(0, resolution, 2);
       break;
     case LEFT_ARROW:
-      snake.setDir(-resolution, 0);
-      snakeDir = 3;
+      snake.setDir(-resolution, 0, 3);
       break;
     case SHIFT: //toogle booster, increasing speed by xx%
       booster();
